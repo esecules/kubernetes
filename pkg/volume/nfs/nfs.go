@@ -167,7 +167,11 @@ func (b *nfsBuilder) SetUpAt(dir string) error {
 	if b.readOnly {
 		options = append(options, "ro")
 	}
+	if b.nfsVersion{
+		options = append(options, "vers=%s",b.nfsVersion)
+	}
 	err = b.mounter.Mount(source, dir, "nfs", options)
+
 	if err != nil {
 		notMnt, mntErr := b.mounter.IsLikelyNotMountPoint(dir)
 		if mntErr != nil {
